@@ -17,6 +17,7 @@ services:
       POSTGRES_PASSWORD: 3x4mpl3
 
   web:
+    image: gothinkster/django-realworld-example-app:development
     build:
       context: .
       dockerfile: dev.Dockerfile
@@ -30,3 +31,18 @@ services:
     - postgres
     environment:
       DATABASE_URL: postgres://postgres:3x4mpl3@postgres:5432/demo_development
+
+  # # Container/Service to test the heroku-deployable image:
+  # web_deployable:
+  #   image: gothinkster/django-realworld-example-app
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.web
+  #   ports:
+  #   - published: ${WEB_DEPLOY_TEST_PORT:-8001}
+  #     target: ${WEB_DEPLOY_TEST_PORT:-8001}
+  #   depends_on:
+  #   - postgres
+  #   environment:
+  #     DATABASE_URL: postgres://postgres:3x4mpl3@postgres:5432/demo_development
+  #     PORT: ${WEB_DEPLOY_TEST_PORT:-8001}
