@@ -1,6 +1,21 @@
 version: "3.4"
 
+volumes:
+  postgres_data:
+
 services:
+  postgres:
+    image: postgres:10.3-alpine
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    # Mount the database init scripts:
+    - ./db_init:/docker-entrypoint-initdb.d
+    ports:
+    - published: ${DEMO_POSTGRES_PORT:-5432}
+      target: 5432
+    environment:
+      POSTGRES_PASSWORD: 3x4mpl3
+
   web:
     build:
       context: .
@@ -11,3 +26,7 @@ services:
     entrypoint: /usr/src/bin/dev-entrypoint.sh
     volumes:
       - .:/usr/src
+    depends_on:
+    - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:3x4mpl3@postgres:5432/demo_development
