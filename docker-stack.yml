@@ -1,13 +1,13 @@
 version: "3.4"
 
 volumes:
-  postgres_data:
+  postgres-data:
 
 services:
   postgres:
     image: postgres:10.3-alpine
     volumes:
-    - postgres_data:/var/lib/postgresql/data
+    - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: 3x4mpl3
     deploy:
@@ -23,6 +23,7 @@ services:
     - postgres
     environment:
       DATABASE_URL: postgres://postgres:3x4mpl3@postgres:5432/demo_development
+      PORT: 8000
     deploy:
       replicas: 2
       update_config:
