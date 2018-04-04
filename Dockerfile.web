@@ -9,3 +9,9 @@ ENV PYTHONBUFFERED 1
 ADD requirements.txt /usr/src/
 
 RUN pip install -r /usr/src/requirements.txt
+
+COPY . /usr/src
+
+ENTRYPOINT /usr/src/bin/entrypoint.sh
+
+CMD [ "web" ]
