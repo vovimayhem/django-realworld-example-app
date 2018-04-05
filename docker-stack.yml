@@ -1,21 +1,22 @@
 version: "3.4"
 
 volumes:
-  postgres-data:
+  postgres_data:
 
 services:
   postgres:
     image: postgres:10.3-alpine
     volumes:
-    - postgres-data:/var/lib/postgresql/data
+    - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: 3x4mpl3
     deploy:
       placement:
         constraints: [node.role == manager]
 
+  #
   web:
-    image: vovimayhem/real-world-backend-django
+    image: vovimayhem/real-world-backend-django:latest
     ports:
     - published: 5000
       target: 8000
