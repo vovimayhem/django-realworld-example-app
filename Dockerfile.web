@@ -12,6 +12,4 @@ RUN pip install -r /usr/src/requirements.txt
 
 COPY . /usr/src
 
-ENTRYPOINT /usr/src/bin/entrypoint.sh
-
-CMD [ "web" ]
+CMD [ "uwsgi", "--ini", "/usr/src/uwsgi.ini" ]
